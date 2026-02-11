@@ -1,0 +1,49 @@
+from re import X
+
+#Day 17 Activity: Scaling Practice
+#Tasks:
+#1) Load numeric dataset
+#2) Apply Min-Max, Standard, and Robust scaling
+#3) Compare distributions or summary stats
+from sklearn.neighbors import KNeighborsRegressor
+from sklearn.metrics import mean_squared_error as mse
+
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler, StandardScaler, RobustScaler
+
+# TODO: Load data from data/day17_scaling.csv
+df = pd.read_csv
+
+df = pd.read_csv("day17_scaling.csv")
+
+# TODO: Fit scalers on numeric columns
+from sklearn.preprocessing import MinMaxScaler
+mm_scaler = MinMaxScaler()
+df17_mm = df.copy()
+df17_mm[["CRIM_mm", "RM_mm"]] = mm_scaler.fit_transform(df[["CRIM", "RM"]])
+
+
+
+
+from sklearn.preprocessing import StandardScaler
+std_scaler = StandardScaler()
+df17_std = df.copy()
+df17_std[["CRIM_std", "RM_std"]] = std_scaler.fit_transform(df[["CRIM", "RM"]])
+print(df17_std[["CRIM_std", "RM_std"]].agg(["mean", "std"]))
+
+
+
+
+from sklearn.preprocessing import RobustScaler
+rob_scaler = RobustScaler()
+df17_rob = df.copy()
+df17_rob[["CRIM_rob", "RM_rob"]] = rob_scaler.fit_transform(df[["CRIM", "RM"]])
+
+
+
+# TODO: Transform and compare summaries
+print(df)
+print(mm_scaler)
+print(std_scaler)
+print(rob_scaler)
+
