@@ -1,0 +1,45 @@
+
+#Day 16 Activity: Encoding Practice
+#Tasks:
+#1) Load categorical dataset
+#2) Apply label encoding and one-hot encoding
+#3) Compare model behavior or summary stats
+
+
+
+
+import pandas as pd
+from sklearn.preprocessing import LabelEncoder
+
+
+# TODO: Load data from data/day16_encoding.csv
+df = pd.read_csv('day16_encoding.csv')
+
+
+
+
+# TODO: Label encode city
+from sklearn.preprocessing import LabelEncoder
+le_city = LabelEncoder()
+df["city labeld"] = le_city.fit_transform(df["city"])
+print("Classes:", le_city.classes_) 
+
+
+
+
+# TODO: One-hot encode city
+from sklearn.preprocessing import OneHotEncoder
+ohe = OneHotEncoder(sparse_output=True, handle_unknown="ignore")
+city_encoded = ohe.fit_transform(df[["city"]])
+print("Encoded shape:", city_encoded.shape, "Categories:", ohe.categories_)
+
+
+
+
+# Creates: city_CHI, city_LA, city_NY, city_SF columns
+df_with_citys = pd.concat([df['city'], df['city labeld'], df16_ohe[['city_CHI', 'city_LA', 'city_NY', 'city_SF']]], axis=1)
+
+# TODO: Compare outputs
+print(df16_ohe)
+print(df)
+
