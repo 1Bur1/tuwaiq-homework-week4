@@ -1,0 +1,40 @@
+
+"""
+Day 18 Activity: Binning Practice
+Tasks:
+1) Load age dataset
+2) Apply equal-width bins, equal-frequency bins, and domain bins
+3) One-hot encode bins and compare
+"""
+
+import pandas as pd
+
+# TODO: Load data from data/day18_binning.csv
+
+df = pd.read_csv("day18_binning.csv")
+
+# TODO: Apply pd.cut and pd.qcut
+df["age_bin_3"] = pd.cut(df["age"], bins=3)
+print(df[["age", "age_bin_3"]].head())
+
+df["age_bins_quantiles"] = pd.qcut(df["age"], q=4, labels=["Q1","Q2","Q3","Q4"])
+print(df["age_bins_quantiles"].value_counts())
+# TODO: Create domain bins
+age_edges = [0,13,18,65,144]
+age_lables = ["Chiled", "Teen", "Adult", "Grand"]
+df["age_group"] = pd.cut(df["age"], bins= age_edges, labels = age_lables, right=False)
+print(df["age_group"].value_counts())
+
+
+
+# TODO: One-hot encode city
+from sklearn.preprocessing import OneHotEncoder
+ohe = OneHotEncoder(sparse_output=True, handle_unknown="ignore")
+city_encoded = ohe.fit_transform(df[["age"]])
+print("Encoded shape:", city_encoded.shape, "Categories:", ohe.categories_)
+
+
+# TODO: Compare value counts
+print(df["age_bin_3"].value_counts())
+print(df["age_group"].value_counts())
+print(df["age"].value_counts())
